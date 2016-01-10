@@ -1,55 +1,113 @@
-﻿namespace NetworkArchitecture.GraphAlgorithms
+﻿using System;
+
+namespace NetworkArchitecture.GraphAlgorithms
 {
     static class Dijkstra
     {
-        
-        static public Path[] runAlgorithm(Graph graph)
+        static private Graph graph;
+        static public Path[] runAlgorithm(Graph graph_, Vertex begin)
         {
-            Path[] shortestPaths = new Path[graph.Nodes.Length * graph.Nodes.Length];
-            PriorityQueue.Heap<Node> nodesHeap = new PriorityQueue.Heap<Node>();
-            int[] prevId = new int[graph.Nodes.Length];
+            graph = graph_;
+            Path[] widestPaths = new Path[graph.Vertices.Length];
+            PriorityQueue.Heap<Vertex> verticesHeap = new PriorityQueue.Heap<Vertex>();
 
-            for (int i = 0; i < graph.Nodes.Length; i++)
+            initialize(begin);
+            verticesHeap.initialise(graph.Vertices.Length);
+            for (int i = 0; i < graph.Vertices.Length; i++)
             {
-                presetCumulatedWeights(graph, graph.Nodes[i].Id);
-                nodesHeap.initialise(graph.Nodes.Length);
-                for (int j = 0; j < graph.Nodes.Length; j++)
-                {
-                    nodesHeap.insertElement(new PriorityQueue.Element<Node>(graph.Nodes[j].CumulatedWeight, graph.Nodes[j]));
-                }
+                verticesHeap.insertElement(new PriorityQueue.Element<Vertex>(graph.Vertices[i].CumulatedWeight, graph.Vertices[i]));
+            }
 
-                while (heap.Size != 0)
+            while(verticesHeap.NumberOfElements != 0)
+            {
+                Vertex currentVertex = verticesHeap.deleteMax().Data;
+                if (currentVertex.CumulatedWeight == 0)
+                    break;
+
+                foreach(Edge e in currentVertex.EdgesOut)
                 {
-                    Node currentNode = nodesHeap.deleteMax().Data;
-                    for (int j = 0; j < currentNode.LinksOut.Length; j++)
+                    Vertex neighbor = e.End;
+
+                    double alternate = Math.Max(neighbor.CumulatedWeight, Math.Min(currentVertex.CumulatedWeight, e.Weight));
+
+                    if (alternate > neighbor.CumulatedWeight)
                     {
-                        Link currentLink = currentNode.LinksOut[j];
-                        double potentialNewCumulatedWeight = currentNode.CumulatedWeight + currentLink.Weight;
-
-                        if (potentialNewCumulatedWeight > currentLink.End.CumulatedWeight)
-                        {
-                            currentLink.End.CumulatedWeight = potentialNewCumulatedWeight;
-                            prevId[currentLink.End.Id - 1] = currentNode.Id;
-                        }
-                            
+                        neighbor.CumulatedWeight = alternate;
+                        neighbor.Prev = currentVertex;
                     }
                 }
+                sortHeap(ref verticesHeap);
+            }
+
+            for (int i = 0; i < graph.Vertices.Length; i++)
+            {
+                widestPaths[i] = generateWidestPath(begin, graph.Vertices[i]);
+            }
+
+            return widestPaths;
+        }
+        static public Path[] runAlgorithm(Graph graph)
+        {
+            Path[] shortestPaths = new Path[graph.Vertices.Length * graph.Vertices.Length];
+
+            for (int i = 0; i < graph.Vertices.Length; i++)
+            {
+                
+
+                //generatePath()
             }
                 
             return shortestPaths;
         }
 
-        static private void presetCumulatedWeights(Graph graph, int beginId)
+        static private void initialize(Vertex begin)
         {
-            for (int i = 0; i < graph.Nodes.Length; i++)
-                graph.Nodes[i].CumulatedWeight = 0;
+
+            for (int i = 0; i < graph.Vertices.Length; i++)
+            {
+                graph.Vertices[i].CumulatedWeight = 0;
+                graph.Vertices[i].Prev = null;
+            }
+                
+
+            double infinity = double.MaxValue;
+            graph.Vertices[begin.Id - 1].CumulatedWeight = infinity;
+
+            begin.Prev = begin;
         }
 
-        static private Path[] generatePaths(int[] prevId)
+        static private void sortHeap(ref PriorityQueue.Heap<Vertex> heap)
         {
-            Path[] shortestPaths = new Path[graph.Nodes.Length];
+            PriorityQueue.Element<Vertex>[] updatedKeys = new PriorityQueue.Element<Vertex>[heap.NumberOfElements];
+            for (int i = 0; i < updatedKeys.Length; i++)
+            {
+                updatedKeys[i] = updateKey(heap.deleteMax());
+            }
+                for (int i = 0; i < updatedKeys.Length; i++)
+            {
+                heap.insertElement(updatedKeys[i]);
+            }
+        }
 
-            
+        static private PriorityQueue.Element<Vertex> updateKey(PriorityQueue.Element<Vertex> element)
+        {
+            element.Key = element.Data.CumulatedWeight;
+            return element;
+        }
+
+        static private Path generateWidestPath(Vertex begin, Vertex end)
+        {
+            Path widestPath = new Path(graph.Vertices.Length);
+            Vertex currentVertex = end;
+
+            while (currentVertex != begin)
+            {
+                widestPath.push(currentVertex);
+                currentVertex = currentVertex.Prev;
+            }
+            widestPath.push(begin);
+
+            return widestPath;
         }
     }
 }

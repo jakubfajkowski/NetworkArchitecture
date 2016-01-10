@@ -47,8 +47,8 @@
     <Compile Include="GraphAlgorithms\Dijkstra.cs" />
     <Compile Include="GraphAlgorithms\Floyd.cs" />
     <Compile Include="GraphAlgorithms\Graph.cs" />
-    <Compile Include="GraphAlgorithms\Link.cs" />
-    <Compile Include="GraphAlgorithms\Node.cs" />
+    <Compile Include="GraphAlgorithms\Edge.cs" />
+    <Compile Include="GraphAlgorithms\Vertex.cs" />
     <Compile Include="GraphAlgorithms\PriorityQueue\Heap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

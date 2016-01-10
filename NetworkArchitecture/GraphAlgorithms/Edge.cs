@@ -1,6 +1,6 @@
 ﻿namespace NetworkArchitecture.GraphAlgorithms
 {
-    class Link
+    class Edge
     {
         private int id;
         public int Id
@@ -9,15 +9,15 @@
             set { id = value; }
         }
 
-        private Node begin;
-        public Node Begin
+        private Vertex begin;
+        public Vertex Begin
         {
             get { return begin; }
             set { begin = value; }
         }
 
-        private Node end;
-        public Node End
+        private Vertex end;
+        public Vertex End
         {
             get { return end; }
             set { end = value; }
@@ -30,7 +30,7 @@
             set { weight = value; }
         }
 
-        public Link(int id, Node begin, Node end)
+        public Edge(int id, Vertex begin, Vertex end)
         {
             this.id = id;
             this.begin = begin;

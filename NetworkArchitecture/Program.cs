@@ -10,9 +10,9 @@ namespace NetworkArchitecture
 
             Console.WriteLine("Algorytmy grafowe:\n");
             Console.WriteLine("Podaj nazwe lub sciezke do pliku: ");
-            string path = Console.ReadLine();
+            string path = "graf_input.txt";//Console.ReadLine();
             Console.WriteLine("Podaj liczbe testow: ");
-            int numberOfTests = int.Parse(Console.ReadLine());
+            int numberOfTests = 1;//int.Parse(Console.ReadLine());
             test.run(path, numberOfTests);
         }
     }

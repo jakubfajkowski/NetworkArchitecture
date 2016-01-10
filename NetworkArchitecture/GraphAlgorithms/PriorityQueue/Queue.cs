@@ -6,10 +6,10 @@ namespace NetworkArchitecture.GraphAlgorithms.PriorityQueue
     abstract class Queue<T> where T : new()
     {
         protected Element<T>[] nodes;
-        protected int n;
-        public int Size
+        protected int numberOfElements;
+        public int NumberOfElements
         {
-            get { return n; }
+            get { return numberOfElements; }
         }
 
         public void initialise(int length)

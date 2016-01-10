@@ -43,8 +43,8 @@ namespace NetworkArchitecture.GraphAlgorithms
             for(int i = 0; i < numberOfTests; i++)
             {
                 stopwatch.Restart();
-                graph.randomizeLinksWeights();
-                Dijkstra.runAlgorithm(graph);
+                graph.randomizeEdgesWeights();
+                printPaths(Dijkstra.runAlgorithm(graph, graph.Vertices[0]));
                 stopwatch.Stop();
                 averageTimeDijkstra += stopwatch.ElapsedMilliseconds;
 
@@ -56,12 +56,22 @@ namespace NetworkArchitecture.GraphAlgorithms
             averageTimeDijkstra /= numberOfTests;
             averageTimeFloyd /= numberOfTests;
         }
-
+        private void printPaths(Path[] paths)
+        {
+            foreach (Path p in paths)
+            {
+                foreach (Vertex v in p.Vertices)
+                {
+                    Console.Write(v.Id);
+                }
+                Console.WriteLine(" min: " + p.MinWeight + " sum: " + p.SumWeight);
+            }
+        }
         private void printResults()
         {
-            Console.Write("Sredni czas dla algorytmu Dijkstry: ");
-            Console.Write("Sredni czas dla algorytmu Floyda: ");
-            Console.Write("Calkowity czas trwania testu: ");
+            Console.WriteLine("Sredni czas dla algorytmu Dijkstry: ");
+            Console.WriteLine("Sredni czas dla algorytmu Floyda: ");
+            Console.WriteLine("Calkowity czas trwania testu: ");
         }
 
         public void run(string path, int numberOfTests)

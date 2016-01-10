@@ -2,25 +2,54 @@
 {
     class Path
     {
-        private Node[] nodes;
-        public Node[] Nodes
+        private Vertex[] vertices;
+        public Vertex[] Vertices
         {
-            get { return nodes; }
+            get
+            {
+                Vertex[] existingVertices = new Vertex[length];
+                for (int i = 0; i < length; i++)
+                {
+                    existingVertices[i] = vertices[length - 1 - i];
+                }
+                return existingVertices;
+            }
         }
+ 
+        private double minWeight;
+        public double MinWeight
+        {
+            get { return minWeight; }
+        }
+
+        private double sumWeight;
+        public double SumWeight
+        {
+            get { return sumWeight; }
+        }
+
         private int length;
         public int Length
         {
             get { return length; }
         }
-        public void push(Node node)
+
+        public void push(Vertex vertex)
         {
-            nodes[length] = node;
-            length++;
+            vertices[length++] = vertex;
+            sumWeight += vertex.CumulatedWeight;
+            for (int i = 0; i < length; i++)
+            {
+                if (vertices[i].CumulatedWeight < minWeight)
+                    minWeight = vertices[i].CumulatedWeight;
+            }
         }
         public Path(int n)
         {
-            nodes = new Node[n];
+            vertices = new Vertex[n];
             length = 0;
+            sumWeight = 0;
+            minWeight = 0;
         }
     }
 }

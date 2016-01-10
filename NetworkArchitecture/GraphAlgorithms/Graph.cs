@@ -5,16 +5,16 @@ namespace NetworkArchitecture.GraphAlgorithms
 {
     class Graph
     {
-        private Node[] nodes;
-        public Node[] Nodes
+        private Vertex[] vertices;
+        public Vertex[] Vertices
         {
-            get { return nodes; }
+            get { return vertices; }
         }
 
-        private Link[] links;
-        public Link[] Links
+        private Edge[] edges;
+        public Edge[] Edges
         {
-            get { return links; }
+            get { return edges; }
         }
 
         
@@ -28,30 +28,30 @@ namespace NetworkArchitecture.GraphAlgorithms
 
         public void load(List<string> textFile)
         {
-            nodes = new Node[int.Parse(getDataFromLine(textFile[0], 1))];
-            for (int i = 0; i < nodes.Length; i++)
+            vertices = new Vertex[int.Parse(getDataFromLine(textFile[0], 1))];
+            for (int i = 0; i < vertices.Length; i++)
             {
-                nodes[i] = new Node(i+1);
+                vertices[i] = new Vertex(i+1);
             }
-            links = new Link[int.Parse(getDataFromLine(textFile[1], 1))];
-            for (int i = 0; i < links.Length; i++)
+            edges = new Edge[int.Parse(getDataFromLine(textFile[1], 1))];
+            for (int i = 0; i < edges.Length; i++)
             {
-                int link_id = int.Parse(getDataFromLine(textFile[2 + i], 0));
+                int edge_id = int.Parse(getDataFromLine(textFile[2 + i], 0));
                 int begin_id = int.Parse(getDataFromLine(textFile[2 + i], 1));
                 int end_id = int.Parse(getDataFromLine(textFile[2 + i], 2));
 
-                links[i] = new Link(link_id, nodes[begin_id - 1], nodes[end_id - 1]);
-                links[i].Begin.addLinkOut(links[i]);
+                edges[i] = new Edge(edge_id, vertices[begin_id - 1], vertices[end_id - 1]);
+                edges[i].Begin.addEdgeOut(edges[i]);
             }
         }
 
-        public void randomizeLinksWeights()
+        public void randomizeEdgesWeights()
         {
             Random generator = new Random();
-            for (int i = 0; i < links.Length; i++)
+            for (int i = 0; i < edges.Length; i++)
             {
                 double randomWeight = generator.NextDouble();
-                links[i].Weight = randomWeight;
+                edges[i].Weight = randomWeight;
             }
         }
     }
