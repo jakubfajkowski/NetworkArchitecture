@@ -51,7 +51,7 @@ namespace NetworkArchitecture.GraphAlgorithms
             for (int i = 0; i < edges.Length; i++)
             {
                 double randomWeight = generator.NextDouble();
-                edges[i].Weight = randomWeight;
+                edges[i].Weight = 1;// randomWeight;
             }
         }
     }

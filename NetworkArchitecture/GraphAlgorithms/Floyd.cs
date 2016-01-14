@@ -6,7 +6,7 @@ namespace NetworkArchitecture.GraphAlgorithms
     static class Floyd
     {
 
-        private const double infinity = double.MaxValue;
+        private const double infinity = 100;//double.MaxValue;
         static private Graph graph;
         static private double[,] weights;
         static private Vertex[,] prev;
@@ -46,7 +46,7 @@ namespace NetworkArchitecture.GraphAlgorithms
                     for (int j = 0; j < len; j++)
                         if (weights[i, k] + weights[k, j] < weights[i, j])
                         {
-                            weights[i, k] = weights[i, k] + weights[k, j];
+                            weights[i, j] = weights[i, k] + weights[k, j];
                             prev[i, j] = graph.Vertices[k];
                         }
             for (int i = 0; i < len; i++)
@@ -94,9 +94,13 @@ namespace NetworkArchitecture.GraphAlgorithms
         {
             Path path = new Path(graph.Vertices.Length);
             Vertex currentVertex = end;
-
+            
             while (currentVertex != begin)
             {
+                if (currentVertex == null)
+                {
+                    return null;
+                }
                 path.push(currentVertex);
                 currentVertex = prev[begin.Id - 1, currentVertex.Id - 1];
             }

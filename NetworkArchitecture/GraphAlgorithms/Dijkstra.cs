@@ -101,6 +101,10 @@ namespace NetworkArchitecture.GraphAlgorithms
 
             while (currentVertex != begin)
             {
+                if (currentVertex == null)
+                {
+                    return null;
+                }
                 path.push(currentVertex);
                 currentVertex = currentVertex.Prev;
             }

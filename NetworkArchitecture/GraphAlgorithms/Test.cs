@@ -67,20 +67,22 @@ namespace NetworkArchitecture.GraphAlgorithms
         {
             foreach (Path p in paths)
             {
-                foreach (Vertex v in p.Vertices)
+                if(p != null)
                 {
-                    Console.Write(v.Id);
+                    foreach (Vertex v in p.Vertices)
+                    {
+                        Console.Write(v.Id + " ");
+                    }
+                    Console.WriteLine();
+                    //if (p.MinWeight == double.MaxValue)
+                    //{
+                    //    Console.WriteLine(" min: infinity" + " sum: " + p.SumWeight);
+                    //}
+                    //else
+                    //{
+                    //    Console.WriteLine(" min: " + p.MinWeight + " sum: " + p.SumWeight);
+                    //}
                 }
-                Console.WriteLine();
-                //if (p.MinWeight == double.MaxValue)
-                //{
-                //    Console.WriteLine(" min: infinity" + " sum: " + p.SumWeight);
-                //}
-                //else
-                //{
-                //    Console.WriteLine(" min: " + p.MinWeight + " sum: " + p.SumWeight);
-                //}
-                
             }
         }
         private void printResults()
