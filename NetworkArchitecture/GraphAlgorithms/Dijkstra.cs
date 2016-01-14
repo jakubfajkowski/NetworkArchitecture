@@ -4,6 +4,7 @@ namespace NetworkArchitecture.GraphAlgorithms
 {
     static class Dijkstra
     {
+        private const double infinity = double.MaxValue;
         static private Graph graph;
         static public Path[] runAlgorithm(Graph graph_, Vertex begin)
         {
@@ -41,7 +42,7 @@ namespace NetworkArchitecture.GraphAlgorithms
 
             for (int i = 0; i < graph.Vertices.Length; i++)
             {
-                widestPaths[i] = generateWidestPath(begin, graph.Vertices[i]);
+                widestPaths[i] = generatePath(begin, graph.Vertices[i]);
             }
 
             return widestPaths;
@@ -69,8 +70,6 @@ namespace NetworkArchitecture.GraphAlgorithms
                 graph.Vertices[i].Prev = null;
             }
                 
-
-            double infinity = double.MaxValue;
             graph.Vertices[begin.Id - 1].CumulatedWeight = infinity;
 
             begin.Prev = begin;
@@ -95,19 +94,19 @@ namespace NetworkArchitecture.GraphAlgorithms
             return element;
         }
 
-        static private Path generateWidestPath(Vertex begin, Vertex end)
+        static private Path generatePath(Vertex begin, Vertex end)
         {
-            Path widestPath = new Path(graph.Vertices.Length);
+            Path path = new Path(graph.Vertices.Length);
             Vertex currentVertex = end;
 
             while (currentVertex != begin)
             {
-                widestPath.push(currentVertex);
+                path.push(currentVertex);
                 currentVertex = currentVertex.Prev;
             }
-            widestPath.push(begin);
+            path.push(begin);
 
-            return widestPath;
+            return path;
         }
     }
 }

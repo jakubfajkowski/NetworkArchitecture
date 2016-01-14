@@ -43,13 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GraphAlgorithms\Edge.cs" />
+    <Compile Include="GraphAlgorithms\Graph.cs" />
     <Compile Include="GraphAlgorithms\PriorityQueue\Element.cs" />
     <Compile Include="GraphAlgorithms\Dijkstra.cs" />
     <Compile Include="GraphAlgorithms\Floyd.cs" />
-    <Compile Include="GraphAlgorithms\Graph.cs" />
-    <Compile Include="GraphAlgorithms\Edge.cs" />
     <Compile Include="GraphAlgorithms\Vertex.cs" />
+    <Compile Include="NetworkProject\Model\Demand.cs" />
+    <Compile Include="NetworkProject\Model\Graph.cs" />
+    <Compile Include="NetworkProject\Model\Edge.cs" />
+    <Compile Include="NetworkProject\Model\Vertex.cs" />
     <Compile Include="GraphAlgorithms\PriorityQueue\Heap.cs" />
+    <Compile Include="NetworkProject\NetworkConstructor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GraphAlgorithms\Path.cs" />

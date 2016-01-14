@@ -37,19 +37,13 @@
         public void push(Vertex vertex)
         {
             vertices[length++] = vertex;
-            sumWeight += vertex.CumulatedWeight;
-            for (int i = 0; i < length; i++)
-            {
-                if (vertices[i].CumulatedWeight < minWeight)
-                    minWeight = vertices[i].CumulatedWeight;
-            }
         }
         public Path(int n)
         {
             vertices = new Vertex[n];
             length = 0;
             sumWeight = 0;
-            minWeight = 0;
+            minWeight = double.MaxValue;
         }
     }
 }

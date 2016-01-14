@@ -37,24 +37,31 @@ namespace NetworkArchitecture.GraphAlgorithms
             }
         }
 
-        private void findShortestRoutes(int numberOfTests)
+        private void findShortestPaths(int numberOfTests)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            for(int i = 0; i < numberOfTests; i++)
+            Stopwatch testTimeStopwatch = new Stopwatch();
+            Stopwatch algorithmStopwatch = new Stopwatch();
+
+            testTimeStopwatch.Start();
+            for (int i = 0; i < numberOfTests; i++)
             {
-                stopwatch.Restart();
+                Console.WriteLine("Algorytm Dijkstry:");
+                algorithmStopwatch.Restart();
                 graph.randomizeEdgesWeights();
                 printPaths(Dijkstra.runAlgorithm(graph, graph.Vertices[0]));
-                stopwatch.Stop();
-                averageTimeDijkstra += stopwatch.ElapsedMilliseconds;
+                algorithmStopwatch.Stop();
+                averageTimeDijkstra += algorithmStopwatch.ElapsedTicks;
 
-                stopwatch.Restart();
-
-                stopwatch.Stop();
-                averageTimeFloyd += stopwatch.ElapsedMilliseconds;
+                Console.WriteLine("Algorytm Floyda:");
+                algorithmStopwatch.Restart();
+                printPaths(Floyd.runAlgorithm(graph, graph.Vertices[0]));
+                algorithmStopwatch.Stop();
+                averageTimeFloyd += algorithmStopwatch.ElapsedTicks;
             }
             averageTimeDijkstra /= numberOfTests;
             averageTimeFloyd /= numberOfTests;
+            testTimeStopwatch.Stop();
+            testTime = testTimeStopwatch.ElapsedTicks;
         }
         private void printPaths(Path[] paths)
         {
@@ -64,14 +71,23 @@ namespace NetworkArchitecture.GraphAlgorithms
                 {
                     Console.Write(v.Id);
                 }
-                Console.WriteLine(" min: " + p.MinWeight + " sum: " + p.SumWeight);
+                Console.WriteLine();
+                //if (p.MinWeight == double.MaxValue)
+                //{
+                //    Console.WriteLine(" min: infinity" + " sum: " + p.SumWeight);
+                //}
+                //else
+                //{
+                //    Console.WriteLine(" min: " + p.MinWeight + " sum: " + p.SumWeight);
+                //}
+                
             }
         }
         private void printResults()
         {
-            Console.WriteLine("Sredni czas dla algorytmu Dijkstry: ");
-            Console.WriteLine("Sredni czas dla algorytmu Floyda: ");
-            Console.WriteLine("Calkowity czas trwania testu: ");
+            Console.WriteLine("Sredni czas dla algorytmu Dijkstry: " + new TimeSpan(averageTimeDijkstra));
+            Console.WriteLine("Sredni czas dla algorytmu Floyda: " + new TimeSpan(averageTimeFloyd));
+            Console.WriteLine("Calkowity czas trwania testu: " + new TimeSpan(testTime));
         }
 
         public void run(string path, int numberOfTests)
@@ -79,7 +95,7 @@ namespace NetworkArchitecture.GraphAlgorithms
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             initialize(path);
-            findShortestRoutes(numberOfTests);
+            findShortestPaths(numberOfTests);
             stopwatch.Stop();
 
             printResults();
