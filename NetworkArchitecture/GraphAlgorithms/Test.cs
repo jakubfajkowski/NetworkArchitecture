@@ -5,21 +5,16 @@ using System.IO;
 
 namespace NetworkArchitecture.GraphAlgorithms
 {
-    class Test
+    static class Test
     {
-        private Graph graph;
-        private long averageTimeDijkstra;
-        private long averageTimeFloyd;
-        private long testTime;
+        static private Graph graph;
+        static private long averageTimeDijkstra;
+        static private long averageTimeFloyd;
+        static private long testTime;
 
-        public Test()
+        static private void initialize(string path)
         {
             graph = new Graph();
-        }
-
-        private void initialize(string path)
-        {
-
             using (StreamReader streamReader = new StreamReader(path))
             {
                 List<string> textFile = new List<string>();
@@ -37,7 +32,7 @@ namespace NetworkArchitecture.GraphAlgorithms
             }
         }
 
-        private void findShortestPaths(int numberOfTests)
+        static private void findShortestPaths(int numberOfTests)
         {
             Stopwatch testTimeStopwatch = new Stopwatch();
             Stopwatch algorithmStopwatch = new Stopwatch();
@@ -63,7 +58,7 @@ namespace NetworkArchitecture.GraphAlgorithms
             testTimeStopwatch.Stop();
             testTime = testTimeStopwatch.ElapsedTicks;
         }
-        private void printPaths(Path[] paths)
+        static private void printPaths(Path[] paths)
         {
             foreach (Path p in paths)
             {
@@ -85,14 +80,14 @@ namespace NetworkArchitecture.GraphAlgorithms
                 }
             }
         }
-        private void printResults()
+        static private void printResults()
         {
             Console.WriteLine("Sredni czas dla algorytmu Dijkstry: " + new TimeSpan(averageTimeDijkstra));
             Console.WriteLine("Sredni czas dla algorytmu Floyda: " + new TimeSpan(averageTimeFloyd));
             Console.WriteLine("Calkowity czas trwania testu: " + new TimeSpan(testTime));
         }
 
-        public void run(string path, int numberOfTests)
+        static public void run(string path, int numberOfTests)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();

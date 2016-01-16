@@ -1,4 +1,6 @@
-﻿namespace NetworkArchitecture.NetworkProject.Model
+﻿using System.Collections.Generic;
+
+namespace NetworkArchitecture.NetworkProject.Model
 {
     class Demand
     {
@@ -23,11 +25,26 @@
             set { end = value; }
         }
 
-        private double weight;
-        public double Weight
+        private double capacity;
+        public double Capacity
         {
-            get { return weight; }
-            set { weight = value; }
+            get { return capacity; }
+            set { capacity = value; }
+        }
+
+        private Stack<Edge> path;
+        public Stack<Edge> Path
+        {
+            get { return path; }
+            set { path = value; }
+        }
+
+        public void flow()
+        {
+            foreach (Edge e in path)
+            {
+                e.flow(this);
+            }
         }
 
         public Demand(int id, Vertex begin, Vertex end, double weight)
@@ -35,7 +52,7 @@
             this.id = id;
             this.begin = begin;
             this.end = end;
-            this.weight = weight;
+            this.capacity = weight;
         }
     }
 }

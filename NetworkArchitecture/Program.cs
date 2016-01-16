@@ -7,15 +7,14 @@ namespace NetworkArchitecture
     {
         static void Main(string[] args)
         {
-            GraphAlgorithms.Test test = new GraphAlgorithms.Test();
-
             Console.WriteLine("Algorytmy grafowe:\n");
             Console.WriteLine("Podaj nazwe lub sciezke do pliku: ");
-            string path = "g.txt";//Console.ReadLine();
+            string path = "siec_input.txt";//Console.ReadLine();
 
             Console.WriteLine("Podaj liczbe testow: ");
-            int numberOfTests = 1;//int.Parse(Console.ReadLine());
-            test.run(path, numberOfTests);
+            //int numberOfTests = 10;//int.Parse(Console.ReadLine());
+            //GraphAlgorithms.Test.run(path, numberOfTests);
+            NetworkProject.NetworkConstructor.run(path);
         }
     }
 }

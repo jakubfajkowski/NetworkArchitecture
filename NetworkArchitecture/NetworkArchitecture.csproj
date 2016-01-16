@@ -50,7 +50,8 @@
     <Compile Include="GraphAlgorithms\Floyd.cs" />
     <Compile Include="GraphAlgorithms\Vertex.cs" />
     <Compile Include="NetworkProject\Model\Demand.cs" />
-    <Compile Include="NetworkProject\Model\Graph.cs" />
+    <Compile Include="NetworkProject\Model\Module.cs" />
+    <Compile Include="NetworkProject\Model\Network.cs" />
     <Compile Include="NetworkProject\Model\Edge.cs" />
     <Compile Include="NetworkProject\Model\Vertex.cs" />
     <Compile Include="GraphAlgorithms\PriorityQueue\Heap.cs" />
