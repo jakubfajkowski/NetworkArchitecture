@@ -53,8 +53,8 @@
     <Compile Include="NetworkProject\Model\Module.cs" />
     <Compile Include="NetworkProject\Model\Network.cs" />
     <Compile Include="NetworkProject\Model\Edge.cs" />
-    <Compile Include="NetworkProject\Model\Vertex.cs" />
     <Compile Include="GraphAlgorithms\PriorityQueue\Heap.cs" />
+    <Compile Include="NetworkProject\Model\Vertex.cs" />
     <Compile Include="NetworkProject\NetworkConstructor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
