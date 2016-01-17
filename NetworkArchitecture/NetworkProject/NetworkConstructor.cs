@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace NetworkArchitecture.NetworkProject
@@ -38,44 +39,54 @@ namespace NetworkArchitecture.NetworkProject
             Model.Vertex end = demand.End;
 
             new_network.resetVertices();
-
-            demand.Path = new Stack<Model.Edge>();
-            Model.Vertex currentVertex = begin;
-            do
-            {
-                Model.Edge currentEdge = currentVertex.getRandomEdgeOut();
-                if (!currentVertex.Visited && currentEdge != null)
-                {
-                    currentVertex.Visited = true;
-                    demand.Path.Push(currentEdge);
-                    currentVertex = currentEdge.End;
-                }
-                else
-                {
-                    currentVertex.Visited = true;
-                    currentVertex = demand.Path.Pop().Begin;
-                    currentVertex.Visited = false;
-                }
-                
-
-            } while (demand.Path.Peek().End != end);
-            //Stack<Model.Vertex> path = new Stack<Model.Vertex>();
-            //path.Push(begin);
-            //while(path.Peek() != end)
+            //Console.WriteLine("Żądanie: " + demand.Begin.Id + " " + demand.End.Id);
+            //demand.Path = new Stack<Model.Edge>();
+            //Model.Vertex currentVertex = begin;
+            //do
             //{
-            //    Model.Vertex currentVertex = path.Peek();
             //    Model.Edge currentEdge = currentVertex.getRandomEdgeOut();
             //    if (!currentVertex.Visited && currentEdge != null)
             //    {
-            //        path.Push(currentEdge.End);
+            //        currentVertex.Visited = true;
+            //        demand.Path.Push(currentEdge);
+            //        currentVertex = currentEdge.End;
+            //        Console.WriteLine(currentEdge.Begin.Id + " -> " + currentEdge.End.Id);
             //    }
             //    else
             //    {
-            //        path.Pop();
-            //        path.Peek().Visited = false;
+            //        currentVertex.Visited = true;
+            //        Model.Vertex tmp = currentVertex;
+            //        currentVertex = demand.Path.Pop().Begin;
+            //        currentVertex.Visited = false;
+
+            //        Console.WriteLine(currentVertex.Id + " <- " + tmp.Id);
             //    }
-            //    currentVertex.Visited = true;
-            //}
+
+
+            //} while (demand.Path.Peek().End != end);
+            Stack<Model.Vertex> path = new Stack<Model.Vertex>();
+            demand.Path = new Stack<Model.Edge>();
+            path.Push(begin);
+            while (path.Peek() != end)
+            {
+                Model.Vertex currentVertex = path.Peek();
+                Model.Edge currentEdge = currentVertex.getRandomEdgeOut();
+                if (!currentVertex.Visited && currentEdge != null)
+                {
+                    //Console.WriteLine(currentEdge.Begin.Id + " -> " + currentEdge.End.Id);
+                    demand.Path.Push(currentEdge);
+                    path.Push(currentEdge.End);
+                }
+                else
+                {
+                    demand.Path.Pop();
+                    path.Pop();
+                    Model.Vertex tmp = path.Peek();
+                    //Console.WriteLine(tmp.Id + " <- " + currentVertex.Id);
+                    path.Peek().Visited = false;
+                }
+                currentVertex.Visited = true;
+            }
         }
 
         
@@ -106,7 +117,7 @@ namespace NetworkArchitecture.NetworkProject
                     network = new_network;
                     new_network = tmp;
                 }
-                Console.WriteLine(new_network.Price() + "   " + network.Price());
+                Console.Write("\rMinimalna cena sieci: " + network.Price());
                 T -= deltaT;
             }
             
@@ -115,10 +126,19 @@ namespace NetworkArchitecture.NetworkProject
         {
             return Math.Exp(- (new_price - old_price) / T);
         }
-        static public void run(string path)
+
+        static private void printResults()
         {
+
+        }
+
+        static public void run(string path, double T, double deltaT)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             initialize(path);
-            simulatedAnnealing(1, 0.001);
+            simulatedAnnealing(T, deltaT);
+            stopwatch.Stop();
 
         }
     }

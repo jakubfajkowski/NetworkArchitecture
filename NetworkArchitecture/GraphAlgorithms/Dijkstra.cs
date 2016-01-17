@@ -47,19 +47,113 @@ namespace NetworkArchitecture.GraphAlgorithms
 
             return widestPaths;
         }
-        static public Path[] runAlgorithm(Graph graph)
-        {
-            Path[] shortestPaths = new Path[graph.Vertices.Length * graph.Vertices.Length];
 
+
+        static public Path[] runAlgorithm(Graph graph_, Vertex begin, Vertex end)
+        {
+            graph = graph_;
+            Path[] widestPath = new Path[graph.Vertices.Length];
+            PriorityQueue.Heap<Vertex> verticesHeap = new PriorityQueue.Heap<Vertex>();
+
+            initialize(begin);
+            verticesHeap.initialise(graph.Vertices.Length);
             for (int i = 0; i < graph.Vertices.Length; i++)
             {
+                verticesHeap.insertElement(new PriorityQueue.Element<Vertex>(graph.Vertices[i].CumulatedWeight, graph.Vertices[i]));
+            }
+
+            while (verticesHeap.NumberOfElements != 0)
+            {
+                Vertex currentVertex = verticesHeap.deleteMax().Data;
+                if (currentVertex.CumulatedWeight == 0)
+                    break;
                 
 
-                //generatePath()
+                foreach (Edge e in currentVertex.EdgesOut)
+                {
+                    Vertex neighbor = e.End;
+
+
+                    double alternate = Math.Max(neighbor.CumulatedWeight, Math.Min(currentVertex.CumulatedWeight, e.Weight));
+
+                    if (alternate > neighbor.CumulatedWeight)
+                    {
+                        neighbor.CumulatedWeight = alternate;
+                        neighbor.Prev = currentVertex;
+                    }
+
+
+                }
+
+             
+                sortHeap(ref verticesHeap);
+            
             }
-                
-            return shortestPaths;
+
+           
+                widestPath[0] = generatePath(begin, end);
+            
+
+            return widestPath;
         }
+
+        static public Path[,] runAlgorithm(Graph graph_)
+        {
+            graph = graph_;
+            Path[,] widestPaths = new Path[graph.Vertices.Length,graph.Vertices.Length];
+            PriorityQueue.Heap<Vertex> verticesHeap = new PriorityQueue.Heap<Vertex>();
+           
+
+            for (int b = 0; b < graph.Vertices.Length; b++)
+            {
+                Vertex begin = graph.Vertices[b];
+                initialize(begin);
+                verticesHeap.initialise(graph.Vertices.Length);
+                for (int i = 0; i < graph.Vertices.Length; i++)
+                {
+                    verticesHeap.insertElement(new PriorityQueue.Element<Vertex>(graph.Vertices[i].CumulatedWeight, graph.Vertices[i]));
+                }
+
+                while (verticesHeap.NumberOfElements != 0)
+                {
+                    Vertex currentVertex = verticesHeap.deleteMax().Data;
+                    if (currentVertex.CumulatedWeight == 0)
+                        break;
+
+
+                    foreach (Edge e in currentVertex.EdgesOut)
+                    {
+                        Vertex neighbor = e.End;
+
+
+                        double alternate = Math.Max(neighbor.CumulatedWeight, Math.Min(currentVertex.CumulatedWeight, e.Weight));
+
+                        if (alternate > neighbor.CumulatedWeight)
+                        {
+                            neighbor.CumulatedWeight = alternate;
+                            neighbor.Prev = currentVertex;
+                        }
+
+
+                    }
+
+
+                    sortHeap(ref verticesHeap);
+
+                }
+
+                for (int i = 0; i < graph.Vertices.Length; i++)
+                {
+                    widestPaths[b,i] = generatePath(begin, graph.Vertices[i]);
+                }
+
+
+
+            }
+            return widestPaths;
+            
+        }
+        
 
         static private void initialize(Vertex begin)
         {

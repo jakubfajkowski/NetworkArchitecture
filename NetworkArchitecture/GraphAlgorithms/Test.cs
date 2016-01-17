@@ -43,13 +43,41 @@ namespace NetworkArchitecture.GraphAlgorithms
                 Console.WriteLine("Algorytm Dijkstry:");
                 algorithmStopwatch.Restart();
                 graph.randomizeEdgesWeights();
-                printPaths(Dijkstra.runAlgorithm(graph, graph.Vertices[0]));
+                printPaths(Dijkstra.runAlgorithm(graph));
                 algorithmStopwatch.Stop();
                 averageTimeDijkstra += algorithmStopwatch.ElapsedTicks;
 
+
+                Console.WriteLine("Algorytm Dijkstry od:");
+                algorithmStopwatch.Restart();
+                graph.randomizeEdgesWeights();
+                printPaths(Dijkstra.runAlgorithm(graph, graph.Vertices[4]));
+                algorithmStopwatch.Stop();
+                averageTimeDijkstra += algorithmStopwatch.ElapsedTicks;
+
+                Console.WriteLine("Algorytm Dijkstry od do:");
+                algorithmStopwatch.Restart();
+                graph.randomizeEdgesWeights(); 
+                printPaths(Dijkstra.runAlgorithm(graph, graph.Vertices[4], graph.Vertices[3]));
+                algorithmStopwatch.Stop();
+                averageTimeDijkstra += algorithmStopwatch.ElapsedTicks;
+
+
                 Console.WriteLine("Algorytm Floyda:");
                 algorithmStopwatch.Restart();
-                printPaths(Floyd.runAlgorithm(graph, graph.Vertices[0]));
+                printPaths(Floyd.runAlgorithm(graph));
+                algorithmStopwatch.Stop();
+                averageTimeFloyd += algorithmStopwatch.ElapsedTicks;
+
+                Console.WriteLine("Algorytm Floyda od:");
+                algorithmStopwatch.Restart();
+                printPaths(Floyd.runAlgorithm(graph, graph.Vertices[4]));
+                algorithmStopwatch.Stop();
+                averageTimeFloyd += algorithmStopwatch.ElapsedTicks;
+
+                Console.WriteLine("Algorytm Floyda od do:");
+                algorithmStopwatch.Restart();
+                printPaths(Floyd.runAlgorithm(graph, graph.Vertices[4],graph.Vertices[3]));
                 algorithmStopwatch.Stop();
                 averageTimeFloyd += algorithmStopwatch.ElapsedTicks;
             }
@@ -80,21 +108,41 @@ namespace NetworkArchitecture.GraphAlgorithms
                 }
             }
         }
+
+        static private void printPaths(Path[,] paths)
+        {
+            foreach (Path p in paths)
+            {
+                if (p != null)
+                {
+                    foreach (Vertex v in p.Vertices)
+                    {
+                        Console.Write(v.Id + " ");
+                    }
+                    Console.WriteLine();
+                    //if (p.MinWeight == double.MaxValue)
+                    //{
+                    //    Console.WriteLine(" min: infinity" + " sum: " + p.SumWeight);
+                    //}
+                    //else
+                    //{
+                    //    Console.WriteLine(" min: " + p.MinWeight + " sum: " + p.SumWeight);
+                    //}
+                }
+            }
+        }
+
         static private void printResults()
         {
-            Console.WriteLine("Sredni czas dla algorytmu Dijkstry: " + new TimeSpan(averageTimeDijkstra));
-            Console.WriteLine("Sredni czas dla algorytmu Floyda: " + new TimeSpan(averageTimeFloyd));
-            Console.WriteLine("Calkowity czas trwania testu: " + new TimeSpan(testTime));
+            Console.WriteLine("Średni czas dla algorytmu Dijkstry: " + new TimeSpan(averageTimeDijkstra));
+            Console.WriteLine("Średni czas dla algorytmu Floyda: " + new TimeSpan(averageTimeFloyd));
+            Console.WriteLine("Całkowity czas trwania testu: " + new TimeSpan(testTime));
         }
 
         static public void run(string path, int numberOfTests)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
             initialize(path);
             findShortestPaths(numberOfTests);
-            stopwatch.Stop();
-
             printResults();
         }
 

@@ -74,9 +74,11 @@ namespace NetworkArchitecture.GraphAlgorithms
 
         static public Path[] runAlgorithm(Graph graph_)
         {
-            Path[] shortestPaths = new Path[graph.Vertices.Length * graph.Vertices.Length];
 
             graph = graph_;
+            Path[] shortestPaths = new Path[graph.Vertices.Length * graph.Vertices.Length];
+
+            
 
             initialize();
 
@@ -90,6 +92,27 @@ namespace NetworkArchitecture.GraphAlgorithms
                 }
             return shortestPaths;
         }
+
+
+        static public Path[] runAlgorithm(Graph graph_, Vertex begin, Vertex end)
+        {
+
+            graph = graph_;
+            Path[] shortestPaths = new Path[graph.Vertices.Length];
+
+            initialize();
+
+            algorithmLogic();
+
+            int len = graph.Vertices.Length;
+            for (int i = 0; i < len; i++)
+            {
+                shortestPaths[i] = generatePath(begin, end);
+            }
+            return shortestPaths;
+        }
+
+
         static private Path generatePath(Vertex begin, Vertex end)
         {
             Path path = new Path(graph.Vertices.Length);
