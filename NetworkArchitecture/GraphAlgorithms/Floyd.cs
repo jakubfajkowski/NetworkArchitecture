@@ -6,7 +6,7 @@ namespace NetworkArchitecture.GraphAlgorithms
     static class Floyd
     {
 
-        private const double infinity = 100;//double.MaxValue;
+        private const double infinity = double.MaxValue;
         static private Graph graph;
         static private double[,] weights;
         static private Vertex[,] prev;
@@ -43,58 +43,58 @@ namespace NetworkArchitecture.GraphAlgorithms
             int len = graph.Vertices.Length;
             for (int k = 0; k < len; k++)
             {
-                print(weights);
-                Console.WriteLine("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-                print(prev);
-                Console.WriteLine("-----------------------------------------------------------------------");
+                //print(weights);
+                //Console.WriteLine("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                //print(prev);
+                //Console.WriteLine("-----------------------------------------------------------------------");
 
                 for (int i = 0; i < len; i++)
                     for (int j = 0; j < len; j++)
                         if (weights[i, k] + weights[k, j] < weights[i, j])
                         {
                             weights[i, j] = weights[i, k] + weights[k, j];
-                            prev[i, j] = graph.Vertices[k];
+                            prev[i, j] = prev[k, j];
                         }
             }
                 
             for (int i = 0; i < len; i++)
                 if (weights[i, i] < 0)
                     throw new ArgumentException("Cykle ujemne");
-            print(weights);
-            Console.WriteLine("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-            print(prev);
-            Console.WriteLine("-----------------------------------------------------------------------");
+            //print(weights);
+            //Console.WriteLine("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            //print(prev);
+            //Console.WriteLine("-----------------------------------------------------------------------");
 
         }
-        static private void print(double[,] arr)
-        {
-            var rowCount = arr.GetLength(0);
-            var colCount = arr.GetLength(1);
-            for (int row = 0; row < rowCount; row++)
-            {
-                for (int col = 0; col < colCount; col++)
-                    Console.Write(String.Format("{0}\t", arr[row, col]));
-                Console.WriteLine();
-            }
-        }
+        //static private void print(double[,] arr)
+        //{
+        //    var rowCount = arr.GetLength(0);
+        //    var colCount = arr.GetLength(1);
+        //    for (int row = 0; row < rowCount; row++)
+        //    {
+        //        for (int col = 0; col < colCount; col++)
+        //            Console.Write(String.Format("{0}\t", arr[row, col]));
+        //        Console.WriteLine();
+        //    }
+        //}
 
-        static private void print(Vertex[,] arr)
-        {
-            var rowCount = arr.GetLength(0);
-            var colCount = arr.GetLength(1);
-            for (int row = 0; row < rowCount; row++)
-            {
-                for (int col = 0; col < colCount; col++)
-                    if(arr[row,col] != null)
-                    {
-                        Console.Write(String.Format("{0}\t", arr[row, col].Id));
-                    }else
-                    {
-                        Console.Write(String.Format("{0}\t", "-"));
-                    }
-                Console.WriteLine();
-            }
-        }
+        //static private void print(Vertex[,] arr)
+        //{
+        //    var rowCount = arr.GetLength(0);
+        //    var colCount = arr.GetLength(1);
+        //    for (int row = 0; row < rowCount; row++)
+        //    {
+        //        for (int col = 0; col < colCount; col++)
+        //            if(arr[row,col] != null)
+        //            {
+        //                Console.Write(String.Format("{0}\t", arr[row, col].Id));
+        //            }else
+        //            {
+        //                Console.Write(String.Format("{0}\t", "-"));
+        //            }
+        //        Console.WriteLine();
+        //    }
+        //}
 
         static public Path[] runAlgorithm(Graph graph_, Vertex begin)
         {
@@ -114,11 +114,11 @@ namespace NetworkArchitecture.GraphAlgorithms
             return shortestPaths;
         }
 
-        static public Path[] runAlgorithm(Graph graph_)
+        static public Path[,] runAlgorithm(Graph graph_)
         {
 
             graph = graph_;
-            Path[] shortestPaths = new Path[graph.Vertices.Length * graph.Vertices.Length];
+            Path[,] shortestPaths = new Path[graph.Vertices.Length, graph.Vertices.Length];
 
             
 
@@ -130,7 +130,7 @@ namespace NetworkArchitecture.GraphAlgorithms
             for (int i = 0; i < len; i++)
                 for (int j = 0; j < len; j++)
                 {
-                    shortestPaths[i * len + j] = generatePath(graph.Vertices[i], graph.Vertices[j]);
+                    shortestPaths[i,j] = generatePath(graph.Vertices[i], graph.Vertices[j]);
                 }
             return shortestPaths;
         }
@@ -147,10 +147,8 @@ namespace NetworkArchitecture.GraphAlgorithms
             algorithmLogic();
 
             int len = graph.Vertices.Length;
-            for (int i = 0; i < len; i++)
-            {
-                shortestPaths[i] = generatePath(begin, end);
-            }
+            
+            shortestPaths[0] = generatePath(begin, end);
             return shortestPaths;
         }
 

@@ -41,32 +41,32 @@ namespace NetworkArchitecture.GraphAlgorithms
             for (int i = 0; i < numberOfTests; i++)
             {
                 //Console.WriteLine("Algorytm Dijkstry:");
-                //graph.randomizeEdgesWeights();
-                //algorithmStopwatch.Restart();
-                //printPaths(Dijkstra.runAlgorithm(graph));
-                //algorithmStopwatch.Stop();
-                //averageTimeDijkstra += algorithmStopwatch.ElapsedTicks;
+                graph.randomizeEdgesWeights();
+                algorithmStopwatch.Restart();
+                Dijkstra.runAlgorithm(graph);//printPaths(Dijkstra.runAlgorithm(graph));
+                algorithmStopwatch.Stop();
+                averageTimeDijkstra += algorithmStopwatch.ElapsedTicks;
 
 
                 //Console.WriteLine("Algorytm Dijkstry od:");
                 //graph.randomizeEdgesWeights();
                 //algorithmStopwatch.Restart();
-                //printPaths(Dijkstra.runAlgorithm(graph, graph.Vertices[8]));
+                //printPaths(Dijkstra.runAlgorithm(graph, graph.Vertices[0]));
                 //algorithmStopwatch.Stop();
                 //averageTimeDijkstra += algorithmStopwatch.ElapsedTicks;
 
                 //Console.WriteLine("Algorytm Dijkstry od do:");
                 //graph.randomizeEdgesWeights();
                 //algorithmStopwatch.Restart();
-                //printPaths(Dijkstra.runAlgorithm(graph, graph.Vertices[1], graph.Vertices[5]));
+                //printPaths(Dijkstra.runAlgorithm(graph, graph.Vertices[0], graph.Vertices[1]));
                 //algorithmStopwatch.Stop();
                 //averageTimeDijkstra += algorithmStopwatch.ElapsedTicks;
 
 
-                Console.WriteLine("Algorytm Floyda:");
+                //Console.WriteLine("Algorytm Floyda:");
                 graph.randomizeEdgesWeights();
                 algorithmStopwatch.Restart();
-                printPaths(Floyd.runAlgorithm(graph));
+                Floyd.runAlgorithm(graph);//printPaths(Floyd.runAlgorithm(graph));
                 algorithmStopwatch.Stop();
                 averageTimeFloyd += algorithmStopwatch.ElapsedTicks;
 
@@ -80,7 +80,7 @@ namespace NetworkArchitecture.GraphAlgorithms
                 //Console.WriteLine("Algorytm Floyda od do:");
                 //graph.randomizeEdgesWeights();
                 //algorithmStopwatch.Restart();
-                //printPaths(Floyd.runAlgorithm(graph, graph.Vertices[4],graph.Vertices[3]));
+                //printPaths(Floyd.runAlgorithm(graph, graph.Vertices[4], graph.Vertices[3]));
                 //algorithmStopwatch.Stop();
                 //averageTimeFloyd += algorithmStopwatch.ElapsedTicks;
             }
@@ -112,28 +112,28 @@ namespace NetworkArchitecture.GraphAlgorithms
             }
         }
 
-        //static private void printPaths(Path[,] paths)
-        //{
-        //    foreach (Path p in paths)
-        //    {
-        //        if (p != null)
-        //        {
-        //            foreach (Vertex v in p.Vertices)
-        //            {
-        //                Console.Write(v.Id + " ");
-        //            }
-        //            Console.WriteLine();
-        //            //if (p.MinWeight == double.MaxValue)
-        //            //{
-        //            //    Console.WriteLine(" min: infinity" + " sum: " + p.SumWeight);
-        //            //}
-        //            //else
-        //            //{
-        //            //    Console.WriteLine(" min: " + p.MinWeight + " sum: " + p.SumWeight);
-        //            //}
-        //        }
-        //    }
-        //}
+        static private void printPaths(Path[,] paths)
+        {
+            foreach (Path p in paths)
+            {
+                if (p != null)
+                {
+                    foreach (Vertex v in p.Vertices)
+                    {
+                        Console.Write(v.Id + " ");
+                    }
+                    Console.WriteLine();
+                    //if (p.MinWeight == double.MaxValue)
+                    //{
+                    //    Console.WriteLine(" min: infinity" + " sum: " + p.SumWeight);
+                    //}
+                    //else
+                    //{
+                    //    Console.WriteLine(" min: " + p.MinWeight + " sum: " + p.SumWeight);
+                    //}
+                }
+            }
+        }
 
         static private void printResults()
         {

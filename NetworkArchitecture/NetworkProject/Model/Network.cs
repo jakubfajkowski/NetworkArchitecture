@@ -33,11 +33,13 @@ namespace NetworkArchitecture.NetworkProject.Model
         public void load(List<string> textFile)
         {
             vertices = new Vertex[int.Parse(getDataFromLine(textFile[0], 1))];
+            if (vertices.Length == 0) throw new Exception("Zerowa liczba węzłów!");
             for (int i = 0; i < vertices.Length; i++)
             {
                 vertices[i] = new Vertex(i+1);
             }
             edges = new Edge[int.Parse(getDataFromLine(textFile[1], 1))];
+            if (edges.Length == 0) throw new Exception("Zerowa liczba łączy!");
             for (int i = 0; i < edges.Length; i++)
             {
                 int link_id = int.Parse(getDataFromLine(textFile[2 + i], 0));
@@ -50,6 +52,7 @@ namespace NetworkArchitecture.NetworkProject.Model
                 edges[i].Begin.addEdgeOut(edges[i]);
             }
             demands = new Demand[int.Parse(getDataFromLine(textFile[2 + edges.Length], 1))];
+            if (demands.Length == 0) throw new Exception("Zerowa liczba zapotrzebowań!");
             for (int i = 0; i < demands.Length; i++)
             {
                 int demand_id = int.Parse(getDataFromLine(textFile[3 + edges.Length + i], 0));

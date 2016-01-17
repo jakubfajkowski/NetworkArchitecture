@@ -26,10 +26,10 @@ namespace NetworkArchitecture
 
                             Console.WriteLine("Algorytmy grafowe:\n");
                             Console.WriteLine("Podaj nazwę lub scieżkę do pliku: ");
-                            path = "graf_input.txt";//Console.ReadLine();
+                            path = Console.ReadLine();
 
                             Console.WriteLine("Podaj liczbę testów: ");
-                            int numberOfTests = 1;//int.Parse(Console.ReadLine());
+                            int numberOfTests = int.Parse(Console.ReadLine());
                             GraphAlgorithms.Test.run(path, numberOfTests);
                            
                             break;
@@ -38,12 +38,12 @@ namespace NetworkArchitecture
 
                             Console.WriteLine("Projektowanie sieci:\n");
                             Console.WriteLine("Podaj nazwę lub scieżkę do pliku: ");
-                            path = "siec_input.txt";//Console.ReadLine();
+                            path = Console.ReadLine();
 
                             Console.WriteLine("Podaj T: ");
-                            double T = 5;//int.Parse(Console.ReadLine());
+                            double T = double.Parse(Console.ReadLine());
                             Console.WriteLine("Podaj delta T: ");
-                            double deltaT = 0.0001;//int.Parse(Console.ReadLine());
+                            double deltaT = double.Parse(Console.ReadLine());
                             NetworkProject.NetworkConstructor.run(path, T, deltaT);
                             Console.WriteLine();
 
@@ -55,7 +55,7 @@ namespace NetworkArchitecture
                     }
                     Console.WriteLine();
                 }
-                catch (SystemException e)
+                catch (Exception e)
                 {
                     Console.Clear();
                     Console.WriteLine(e.Message);

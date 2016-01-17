@@ -29,11 +29,14 @@ namespace NetworkArchitecture.GraphAlgorithms
         public void load(List<string> textFile)
         {
             vertices = new Vertex[int.Parse(getDataFromLine(textFile[0], 1))];
+            if (vertices.Length == 0) throw new Exception("Zerowa liczba wierzchołków!");
             for (int i = 0; i < vertices.Length; i++)
             {
                 vertices[i] = new Vertex(i+1);
             }
+
             edges = new Edge[int.Parse(getDataFromLine(textFile[1], 1))];
+            if (edges.Length == 0) throw new Exception("Zerowa liczba krawędzi!");
             for (int i = 0; i < edges.Length; i++)
             {
                 int edge_id = int.Parse(getDataFromLine(textFile[2 + i], 0));
@@ -51,7 +54,7 @@ namespace NetworkArchitecture.GraphAlgorithms
             for (int i = 0; i < edges.Length; i++)
             {
                 double randomWeight = generator.NextDouble();
-                edges[i].Weight = 1;// randomWeight;
+                edges[i].Weight = randomWeight;
             }
         }
     }

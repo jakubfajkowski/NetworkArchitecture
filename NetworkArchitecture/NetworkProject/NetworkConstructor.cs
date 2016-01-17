@@ -117,7 +117,7 @@ namespace NetworkArchitecture.NetworkProject
                     network = new_network;
                     new_network = tmp;
                 }
-                Console.Write("\rMinimalna cena sieci: " + network.Price());
+                Console.Write("\rMinimalna cena sieci: " + network.Price() + "                 ");
                 T -= deltaT;
             }
             
@@ -129,7 +129,49 @@ namespace NetworkArchitecture.NetworkProject
 
         static private void printResults()
         {
-            ////////////////////////////////////
+            using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter("siec_output.txt"))
+            {
+                file.WriteLine("KOSZT = {0}", network.Price());
+
+                file.WriteLine("ZAPOTRZEBOWANIA = {0}", network.Demands.Length);
+                foreach(Model.Demand d in network.Demands)
+                {
+                    file.Write("{0} ", d.Id);
+                    foreach(Model.Edge e in d.Path)
+                    {
+                        file.Write("{0} ", e.Id);
+                    }
+                    file.WriteLine();
+                }
+
+                file.WriteLine("LACZA = {0}", network.Edges.Length);
+                foreach (Model.Edge e in network.Edges)
+                {
+                    file.WriteLine("{0} {1}", e.Id, e.NumberOfModules);
+                }
+            }
+
+            Console.WriteLine("\nKOSZT = {0}", network.Price());
+
+            Console.WriteLine("ZAPOTRZEBOWANIA = {0}", network.Demands.Length);
+            foreach (Model.Demand d in network.Demands)
+            {
+                Console.Write("{0} ", d.Id);
+                foreach (Model.Edge e in d.Path)
+                {
+                    Console.Write("{0} ", e.Id);
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("LACZA = {0}", network.Edges.Length);
+            foreach (Model.Edge e in network.Edges)
+            {
+                Console.WriteLine("{0} {1}", e.Id, e.NumberOfModules);
+            }
+
+
         }
 
         static public void run(string path, double T, double deltaT)
@@ -139,7 +181,7 @@ namespace NetworkArchitecture.NetworkProject
             initialize(path);
             simulatedAnnealing(T, deltaT);
             stopwatch.Stop();
-
+            printResults();
         }
     }
 }
