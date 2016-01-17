@@ -23,7 +23,7 @@ namespace NetworkArchitecture.GraphAlgorithms
                 {
                     string line = streamReader.ReadLine();
 
-                    if (!line.Contains("#"))
+                    if (!line.Contains("#") && line != "")
                     {
                         textFile.Add(line);
                     }
@@ -40,46 +40,49 @@ namespace NetworkArchitecture.GraphAlgorithms
             testTimeStopwatch.Start();
             for (int i = 0; i < numberOfTests; i++)
             {
-                Console.WriteLine("Algorytm Dijkstry:");
-                algorithmStopwatch.Restart();
-                graph.randomizeEdgesWeights();
-                printPaths(Dijkstra.runAlgorithm(graph));
-                algorithmStopwatch.Stop();
-                averageTimeDijkstra += algorithmStopwatch.ElapsedTicks;
+                //Console.WriteLine("Algorytm Dijkstry:");
+                //graph.randomizeEdgesWeights();
+                //algorithmStopwatch.Restart();
+                //printPaths(Dijkstra.runAlgorithm(graph));
+                //algorithmStopwatch.Stop();
+                //averageTimeDijkstra += algorithmStopwatch.ElapsedTicks;
 
 
-                Console.WriteLine("Algorytm Dijkstry od:");
-                algorithmStopwatch.Restart();
-                graph.randomizeEdgesWeights();
-                printPaths(Dijkstra.runAlgorithm(graph, graph.Vertices[4]));
-                algorithmStopwatch.Stop();
-                averageTimeDijkstra += algorithmStopwatch.ElapsedTicks;
+                //Console.WriteLine("Algorytm Dijkstry od:");
+                //graph.randomizeEdgesWeights();
+                //algorithmStopwatch.Restart();
+                //printPaths(Dijkstra.runAlgorithm(graph, graph.Vertices[8]));
+                //algorithmStopwatch.Stop();
+                //averageTimeDijkstra += algorithmStopwatch.ElapsedTicks;
 
-                Console.WriteLine("Algorytm Dijkstry od do:");
-                algorithmStopwatch.Restart();
-                graph.randomizeEdgesWeights(); 
-                printPaths(Dijkstra.runAlgorithm(graph, graph.Vertices[4], graph.Vertices[3]));
-                algorithmStopwatch.Stop();
-                averageTimeDijkstra += algorithmStopwatch.ElapsedTicks;
+                //Console.WriteLine("Algorytm Dijkstry od do:");
+                //graph.randomizeEdgesWeights();
+                //algorithmStopwatch.Restart();
+                //printPaths(Dijkstra.runAlgorithm(graph, graph.Vertices[1], graph.Vertices[5]));
+                //algorithmStopwatch.Stop();
+                //averageTimeDijkstra += algorithmStopwatch.ElapsedTicks;
 
 
                 Console.WriteLine("Algorytm Floyda:");
+                graph.randomizeEdgesWeights();
                 algorithmStopwatch.Restart();
                 printPaths(Floyd.runAlgorithm(graph));
                 algorithmStopwatch.Stop();
                 averageTimeFloyd += algorithmStopwatch.ElapsedTicks;
 
-                Console.WriteLine("Algorytm Floyda od:");
-                algorithmStopwatch.Restart();
-                printPaths(Floyd.runAlgorithm(graph, graph.Vertices[4]));
-                algorithmStopwatch.Stop();
-                averageTimeFloyd += algorithmStopwatch.ElapsedTicks;
+                //Console.WriteLine("Algorytm Floyda od:");
+                //graph.randomizeEdgesWeights();
+                //algorithmStopwatch.Restart();
+                //printPaths(Floyd.runAlgorithm(graph, graph.Vertices[4]));
+                //algorithmStopwatch.Stop();
+                //averageTimeFloyd += algorithmStopwatch.ElapsedTicks;
 
-                Console.WriteLine("Algorytm Floyda od do:");
-                algorithmStopwatch.Restart();
-                printPaths(Floyd.runAlgorithm(graph, graph.Vertices[4],graph.Vertices[3]));
-                algorithmStopwatch.Stop();
-                averageTimeFloyd += algorithmStopwatch.ElapsedTicks;
+                //Console.WriteLine("Algorytm Floyda od do:");
+                //graph.randomizeEdgesWeights();
+                //algorithmStopwatch.Restart();
+                //printPaths(Floyd.runAlgorithm(graph, graph.Vertices[4],graph.Vertices[3]));
+                //algorithmStopwatch.Stop();
+                //averageTimeFloyd += algorithmStopwatch.ElapsedTicks;
             }
             averageTimeDijkstra /= numberOfTests;
             averageTimeFloyd /= numberOfTests;
@@ -109,28 +112,28 @@ namespace NetworkArchitecture.GraphAlgorithms
             }
         }
 
-        static private void printPaths(Path[,] paths)
-        {
-            foreach (Path p in paths)
-            {
-                if (p != null)
-                {
-                    foreach (Vertex v in p.Vertices)
-                    {
-                        Console.Write(v.Id + " ");
-                    }
-                    Console.WriteLine();
-                    //if (p.MinWeight == double.MaxValue)
-                    //{
-                    //    Console.WriteLine(" min: infinity" + " sum: " + p.SumWeight);
-                    //}
-                    //else
-                    //{
-                    //    Console.WriteLine(" min: " + p.MinWeight + " sum: " + p.SumWeight);
-                    //}
-                }
-            }
-        }
+        //static private void printPaths(Path[,] paths)
+        //{
+        //    foreach (Path p in paths)
+        //    {
+        //        if (p != null)
+        //        {
+        //            foreach (Vertex v in p.Vertices)
+        //            {
+        //                Console.Write(v.Id + " ");
+        //            }
+        //            Console.WriteLine();
+        //            //if (p.MinWeight == double.MaxValue)
+        //            //{
+        //            //    Console.WriteLine(" min: infinity" + " sum: " + p.SumWeight);
+        //            //}
+        //            //else
+        //            //{
+        //            //    Console.WriteLine(" min: " + p.MinWeight + " sum: " + p.SumWeight);
+        //            //}
+        //        }
+        //    }
+        //}
 
         static private void printResults()
         {

@@ -29,7 +29,7 @@ namespace NetworkArchitecture
                             path = "graf_input.txt";//Console.ReadLine();
 
                             Console.WriteLine("Podaj liczbę testów: ");
-                            int numberOfTests = 10;//int.Parse(Console.ReadLine());
+                            int numberOfTests = 1;//int.Parse(Console.ReadLine());
                             GraphAlgorithms.Test.run(path, numberOfTests);
                            
                             break;

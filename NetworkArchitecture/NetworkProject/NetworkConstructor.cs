@@ -129,7 +129,7 @@ namespace NetworkArchitecture.NetworkProject
 
         static private void printResults()
         {
-
+            ////////////////////////////////////
         }
 
         static public void run(string path, double T, double deltaT)
