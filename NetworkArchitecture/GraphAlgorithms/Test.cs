@@ -93,7 +93,7 @@ namespace NetworkArchitecture.GraphAlgorithms
         {
             foreach (Path p in paths)
             {
-                if(p != null)
+                if (p != null)
                 {
                     foreach (Vertex v in p.Vertices)
                     {
@@ -148,6 +148,19 @@ namespace NetworkArchitecture.GraphAlgorithms
             findShortestPaths(numberOfTests);
             printResults();
         }
-
+        static public void generateGraph(int n)
+        {
+            using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter("graf_input.txt"))
+            {
+                file.WriteLine("WEZLY = {0}", n);
+                file.WriteLine("LACZA = {0}", n * (n-1));
+                int id = 1;
+                for(int i = 0; i<n; i++)              
+                    for (int j = 0; j<n; j++)
+                         if (i != j) file.WriteLine("{0} {1} {2}", id++, i + 1, j + 1);
+            }    
+        }
+            
     }
 }

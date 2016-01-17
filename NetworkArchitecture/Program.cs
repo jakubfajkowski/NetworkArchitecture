@@ -10,11 +10,11 @@ namespace NetworkArchitecture
             
 
             int input = 0;
-            while (input != 3)
+            while (input != 4)
             {
                 try
                 {
-                    Console.WriteLine("Wybierz opcję: \n1. Algorytmy grafowe \n2. Projektowanie sieci \n3. Wyjście z programu \n");
+                    Console.WriteLine("Wybierz opcję: \n1. Algorytmy grafowe \n2. Generator grafów \n3. Projektowanie sieci \n4. Wyjście z programu \n");
                     string line;
                     line = Console.ReadLine();
                     if (!int.TryParse(line, out input)) continue;
@@ -36,6 +36,16 @@ namespace NetworkArchitecture
                         case 2:
                             Console.Clear();
 
+                            Console.WriteLine("Generator grafów:\n");
+                            Console.WriteLine("Podaj liczbę wierzchołków: ");
+                            int n = int.Parse(Console.ReadLine());
+                            GraphAlgorithms.Test.generateGraph(n);
+
+                            break;
+                            
+                        case 3:
+                            Console.Clear();
+
                             Console.WriteLine("Projektowanie sieci:\n");
                             Console.WriteLine("Podaj nazwę lub scieżkę do pliku: ");
                             path = Console.ReadLine();
@@ -45,8 +55,6 @@ namespace NetworkArchitecture
                             Console.WriteLine("Podaj delta T: ");
                             double deltaT = double.Parse(Console.ReadLine());
                             NetworkProject.NetworkConstructor.run(path, T, deltaT);
-                            Console.WriteLine();
-
                             break;
 
 
